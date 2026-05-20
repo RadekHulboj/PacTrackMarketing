@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply font-sans text-gray-900 antialiased;
+  }
+}
+
+@layer components {
+  .section-padding {
+    @apply px-4 py-16 sm:px-6 md:py-24 lg:px-8;
+  }
+  .container-narrow {
+    @apply mx-auto max-w-7xl;
+  }
+}
+
+/* Blog post prose styling */
+.prose h1 { @apply text-3xl font-bold mt-8 mb-4; }
+.prose h2 { @apply text-2xl font-semibold mt-6 mb-3; }
+.prose h3 { @apply text-xl font-semibold mt-5 mb-2; }
+.prose p { @apply mb-4 leading-relaxed text-gray-700; }
+.prose ul { @apply list-disc pl-6 mb-4 space-y-1; }
+.prose ol { @apply list-decimal pl-6 mb-4 space-y-1; }
+.prose li { @apply text-gray-700; }
+.prose a { @apply text-primary-600 underline hover:text-primary-800; }
+.prose blockquote { @apply border-l-4 border-primary-300 pl-4 italic text-gray-600 my-4; }
+.prose code { @apply bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono; }
+.prose pre { @apply bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto mb-4; }
+.prose pre code { @apply bg-transparent p-0; }
+.prose img { @apply rounded-lg my-6; }
+.prose hr { @apply my-8 border-gray-200; }

@@ -1,0 +1,204 @@
+{
+  "metadata": {
+    "title": "PacTrack — System Śledzenia Przesyłek dla E-commerce",
+    "description": "Kompleksowy system śledzenia przesyłek e-commerce. Śledź paczki w czasie rzeczywistym, zarządzaj dostawami i buduj zaufanie klientów."
+  },
+  "nav": {
+    "features": "Funkcje",
+    "pricing": "Cennik",
+    "blog": "Blog",
+    "caseStudies": "Case Studies",
+    "faq": "FAQ",
+    "contact": "Kontakt",
+    "login": "Zaloguj się",
+    "getStarted": "Rozpocznij za darmo"
+  },
+  "hero": {
+    "badge": "Nowa wersja 2.0 — zobacz co nowego",
+    "title": "Śledź przesyłki w czasie rzeczywistym",
+    "subtitle": "Kompleksowy system zarządzania i śledzenia przesyłek dla sprzedawców e-commerce. Integracja z Allegro, certyfikaty cyfrowe i dowody dostawy.",
+    "cta": "Rozpocznij za darmo",
+    "ctaSecondary": "Zobacz demo",
+    "trustedBy": "Zaufali nam sprzedawcy z całej Polski"
+  },
+  "features": {
+    "sectionTitle": "Wszystko czego potrzebujesz do zarządzania przesyłkami",
+    "sectionSubtitle": "Jeden system, pełna kontrola nad Twoimi przesyłkami — od nadania do dostarczenia.",
+    "tracking": {
+      "title": "Śledzenie w czasie rzeczywistym",
+      "description": "Śledź status każdej paczki na każdym etapie dostawy. Powiadomienia push i aktualizacje w czasie rzeczywistym."
+    },
+    "allegro": {
+      "title": "Integracja z Allegro",
+      "description": "Automatyczny import zamówień z Allegro. Synchronizacja statusów, śledzenie przesyłek bezpośrednio z panelu."
+    },
+    "certificates": {
+      "title": "Certyfikaty cyfrowe",
+      "description": "Generuj certyfikaty autentyczności z kodem QR. Weryfikacja publiczna bez logowania."
+    },
+    "evidence": {
+      "title": "Dowody dostawy",
+      "description": "Zdjęcia i filmy jako dowody dostawy. Ochrona w sporach z klientami i przewoźnikami."
+    },
+    "mobile": {
+      "title": "Aplikacja mobilna",
+      "description": "Natywna aplikacja Android do zarządzania przesyłkami w terenie. Skanowanie kodów QR i robienie zdjęć."
+    },
+    "security": {
+      "title": "Bezpieczeństwo danych",
+      "description": "Szyfrowanie end-to-end, podpisy cyfrowe, integralność danych. Certyfikat SSL i ochrona DDoS."
+    }
+  },
+  "pricing": {
+    "sectionTitle": "Prosty i przejrzysty cennik",
+    "sectionSubtitle": "Wybierz plan dopasowany do Twoich potrzeb. Zacznij za darmo, skaluj kiedy chcesz.",
+    "monthly": "miesięcznie",
+    "free": {
+      "name": "Starter",
+      "price": "0 zł",
+      "description": "Idealny na start",
+      "features": [
+        "Do 50 przesyłek/miesiąc",
+        "Śledzenie w czasie rzeczywistym",
+        "Podstawowe raporty",
+        "1 użytkownik",
+        "Wsparcie email"
+      ],
+      "cta": "Zacznij za darmo"
+    },
+    "pro": {
+      "name": "Professional",
+      "price": "99 zł",
+      "description": "Dla rosnących biznesów",
+      "popular": "Najpopularniejszy",
+      "features": [
+        "Do 1000 przesyłek/miesiąc",
+        "Integracja z Allegro",
+        "Certyfikaty cyfrowe",
+        "Dowody dostawy (zdjęcia)",
+        "5 użytkowników",
+        "Priorytetowe wsparcie"
+      ],
+      "cta": "Rozpocznij okres próbny"
+    },
+    "enterprise": {
+      "name": "Enterprise",
+      "price": "Kontakt",
+      "description": "Dla dużych firm",
+      "features": [
+        "Nieograniczone przesyłki",
+        "Wszystkie integracje",
+        "Certyfikaty + pieczęcie cyfrowe",
+        "Dowody dostawy (zdjęcia + wideo)",
+        "Nieograniczeni użytkownicy",
+        "Dedykowany opiekun",
+        "SLA 99.9%"
+      ],
+      "cta": "Skontaktuj się"
+    }
+  },
+  "testimonials": {
+    "sectionTitle": "Co mówią nasi klienci",
+    "sectionSubtitle": "Dołącz do grona zadowolonych sprzedawców, którzy zaufali PacTrack.",
+    "items": [
+      {
+        "quote": "PacTrack całkowicie zmienił sposób w jaki zarządzam przesyłkami. Integracja z Allegro oszczędza mi godziny pracy tygodniowo.",
+        "author": "Anna K.",
+        "role": "Sprzedawca Allegro",
+        "company": "ElektroShop"
+      },
+      {
+        "quote": "Certyfikaty cyfrowe to game changer. Klienci mają pewność autentyczności produktów, a ja mam spokój.",
+        "author": "Marek W.",
+        "role": "Właściciel sklepu",
+        "company": "PremiumWatch.pl"
+      },
+      {
+        "quote": "Dowody dostawy ze zdjęciami uratowały nas w kilku sporach z klientami. Polecam każdemu sprzedawcy.",
+        "author": "Katarzyna L.",
+        "role": "Menedżer logistyki",
+        "company": "FashionStore24"
+      }
+    ]
+  },
+  "faq": {
+    "sectionTitle": "Najczęściej zadawane pytania",
+    "sectionSubtitle": "Masz pytania? Znajdź odpowiedzi poniżej lub skontaktuj się z nami.",
+    "items": [
+      {
+        "question": "Jak długo trwa konfiguracja systemu?",
+        "answer": "Rejestracja i podstawowa konfiguracja zajmuje około 5 minut. Integracja z Allegro wymaga dodatkowych 10 minut. Pełne wdrożenie z konfiguracją kurierów to zazwyczaj 1 dzień roboczy."
+      },
+      {
+        "question": "Czy mogę przetestować system za darmo?",
+        "answer": "Tak! Plan Starter jest całkowicie darmowy i pozwala na zarządzanie do 50 przesyłek miesięcznie. Nie wymaga karty kredytowej."
+      },
+      {
+        "question": "Jak działa integracja z Allegro?",
+        "answer": "PacTrack łączy się z API Allegro przez OAuth 2.0. Po połączeniu konta, zamówienia i statusy są synchronizowane automatycznie. Nie wymaga żadnej wiedzy technicznej."
+      },
+      {
+        "question": "Czy moje dane są bezpieczne?",
+        "answer": "Tak. Stosujemy szyfrowanie end-to-end, podpisy cyfrowe RSA, certyfikaty SSL oraz ochronę DDoS przez Cloudflare. Dane przechowywane są w chmurze Azure z redundancją geograficzną."
+      },
+      {
+        "question": "Czy jest aplikacja mobilna?",
+        "answer": "Tak, oferujemy natywną aplikację Android do zarządzania przesyłkami w terenie. Umożliwia skanowanie kodów QR, robienie zdjęć dowodów dostawy i śledzenie statusów."
+      },
+      {
+        "question": "Jakie formy płatności akceptujecie?",
+        "answer": "Akceptujemy przelewy bankowe, karty kredytowe (Visa, Mastercard) oraz płatności przez PayU. Faktury VAT wystawiamy automatycznie."
+      }
+    ]
+  },
+  "contact": {
+    "sectionTitle": "Skontaktuj się z nami",
+    "sectionSubtitle": "Masz pytania? Napisz do nas, odpowiemy w ciągu 24 godzin.",
+    "name": "Imię i nazwisko",
+    "email": "Adres email",
+    "message": "Wiadomość",
+    "send": "Wyślij wiadomość",
+    "success": "Wiadomość wysłana! Odpowiemy w ciągu 24 godzin.",
+    "errorGeneric": "Wystąpił błąd. Spróbuj ponownie później.",
+    "errorRateLimit": "Zbyt wiele wiadomości. Spróbuj ponownie za minutę.",
+    "info": {
+      "email": "kontakt@pactrack.pl",
+      "phone": "+48 123 456 789",
+      "address": "Polska"
+    }
+  },
+  "footer": {
+    "description": "Kompleksowy system śledzenia przesyłek dla sprzedawców e-commerce.",
+    "product": "Produkt",
+    "company": "Firma",
+    "legal": "Prawne",
+    "links": {
+      "features": "Funkcje",
+      "pricing": "Cennik",
+      "blog": "Blog",
+      "aboutUs": "O nas",
+      "contact": "Kontakt",
+      "caseStudies": "Case Studies",
+      "privacy": "Polityka prywatności",
+      "terms": "Regulamin",
+      "cookies": "Cookies"
+    },
+    "copyright": "© 2025 PacTrack. Wszelkie prawa zastrzeżone.",
+    "app": "Przejdź do aplikacji"
+  },
+  "blog": {
+    "title": "Blog PacTrack",
+    "subtitle": "Porady, aktualności i inspiracje dla sprzedawców e-commerce.",
+    "readMore": "Czytaj więcej",
+    "backToBlog": "Wróć do bloga",
+    "publishedOn": "Opublikowano",
+    "byAuthor": "przez",
+    "categories": "Kategorie",
+    "recentPosts": "Ostatnie wpisy",
+    "noPosts": "Brak wpisów na blogu."
+  },
+  "caseStudies": {
+    "title": "Case Studies",
+    "subtitle": "Zobacz jak nasi klienci wykorzystują PacTrack do rozwoju swojego biznesu."
+  }
+}

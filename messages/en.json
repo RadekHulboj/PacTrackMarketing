@@ -1,0 +1,204 @@
+{
+  "metadata": {
+    "title": "PacTrack — Parcel Tracking System for E-commerce",
+    "description": "Comprehensive e-commerce parcel tracking system. Track packages in real-time, manage deliveries and build customer trust."
+  },
+  "nav": {
+    "features": "Features",
+    "pricing": "Pricing",
+    "blog": "Blog",
+    "caseStudies": "Case Studies",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "login": "Log in",
+    "getStarted": "Get Started Free"
+  },
+  "hero": {
+    "badge": "New version 2.0 — see what's new",
+    "title": "Track parcels in real-time",
+    "subtitle": "Comprehensive parcel management and tracking system for e-commerce sellers. Allegro integration, digital certificates and delivery proof.",
+    "cta": "Get Started Free",
+    "ctaSecondary": "See demo",
+    "trustedBy": "Trusted by sellers across Poland"
+  },
+  "features": {
+    "sectionTitle": "Everything you need to manage parcels",
+    "sectionSubtitle": "One system, full control over your parcels — from dispatch to delivery.",
+    "tracking": {
+      "title": "Real-time tracking",
+      "description": "Track the status of every parcel at every delivery stage. Push notifications and real-time updates."
+    },
+    "allegro": {
+      "title": "Allegro integration",
+      "description": "Automatic order import from Allegro. Status synchronization, parcel tracking directly from the dashboard."
+    },
+    "certificates": {
+      "title": "Digital certificates",
+      "description": "Generate authenticity certificates with QR codes. Public verification without login."
+    },
+    "evidence": {
+      "title": "Delivery proof",
+      "description": "Photos and videos as delivery proof. Protection in disputes with customers and carriers."
+    },
+    "mobile": {
+      "title": "Mobile app",
+      "description": "Native Android app for managing parcels in the field. QR code scanning and photo capture."
+    },
+    "security": {
+      "title": "Data security",
+      "description": "End-to-end encryption, digital signatures, data integrity. SSL certificate and DDoS protection."
+    }
+  },
+  "pricing": {
+    "sectionTitle": "Simple and transparent pricing",
+    "sectionSubtitle": "Choose a plan that fits your needs. Start for free, scale when you want.",
+    "monthly": "monthly",
+    "free": {
+      "name": "Starter",
+      "price": "$0",
+      "description": "Perfect to start",
+      "features": [
+        "Up to 50 parcels/month",
+        "Real-time tracking",
+        "Basic reports",
+        "1 user",
+        "Email support"
+      ],
+      "cta": "Start for free"
+    },
+    "pro": {
+      "name": "Professional",
+      "price": "$25",
+      "description": "For growing businesses",
+      "popular": "Most popular",
+      "features": [
+        "Up to 1000 parcels/month",
+        "Allegro integration",
+        "Digital certificates",
+        "Delivery proof (photos)",
+        "5 users",
+        "Priority support"
+      ],
+      "cta": "Start free trial"
+    },
+    "enterprise": {
+      "name": "Enterprise",
+      "price": "Contact us",
+      "description": "For large companies",
+      "features": [
+        "Unlimited parcels",
+        "All integrations",
+        "Certificates + digital stamps",
+        "Delivery proof (photos + video)",
+        "Unlimited users",
+        "Dedicated account manager",
+        "99.9% SLA"
+      ],
+      "cta": "Contact us"
+    }
+  },
+  "testimonials": {
+    "sectionTitle": "What our customers say",
+    "sectionSubtitle": "Join satisfied sellers who trust PacTrack.",
+    "items": [
+      {
+        "quote": "PacTrack completely changed how I manage parcels. Allegro integration saves me hours of work every week.",
+        "author": "Anna K.",
+        "role": "Allegro Seller",
+        "company": "ElektroShop"
+      },
+      {
+        "quote": "Digital certificates are a game changer. Customers are sure about product authenticity, and I have peace of mind.",
+        "author": "Marek W.",
+        "role": "Store Owner",
+        "company": "PremiumWatch.pl"
+      },
+      {
+        "quote": "Delivery proof with photos saved us in several customer disputes. I recommend it to every seller.",
+        "author": "Katarzyna L.",
+        "role": "Logistics Manager",
+        "company": "FashionStore24"
+      }
+    ]
+  },
+  "faq": {
+    "sectionTitle": "Frequently asked questions",
+    "sectionSubtitle": "Have questions? Find answers below or contact us.",
+    "items": [
+      {
+        "question": "How long does system setup take?",
+        "answer": "Registration and basic setup takes about 5 minutes. Allegro integration requires an additional 10 minutes. Full deployment with courier configuration is typically 1 business day."
+      },
+      {
+        "question": "Can I test the system for free?",
+        "answer": "Yes! The Starter plan is completely free and allows managing up to 50 parcels per month. No credit card required."
+      },
+      {
+        "question": "How does Allegro integration work?",
+        "answer": "PacTrack connects to the Allegro API via OAuth 2.0. After connecting your account, orders and statuses sync automatically. No technical knowledge required."
+      },
+      {
+        "question": "Is my data secure?",
+        "answer": "Yes. We use end-to-end encryption, RSA digital signatures, SSL certificates, and DDoS protection via Cloudflare. Data is stored in Azure cloud with geographic redundancy."
+      },
+      {
+        "question": "Is there a mobile app?",
+        "answer": "Yes, we offer a native Android app for managing parcels in the field. It enables QR code scanning, delivery proof photos, and status tracking."
+      },
+      {
+        "question": "What payment methods do you accept?",
+        "answer": "We accept bank transfers, credit cards (Visa, Mastercard), and PayU payments. VAT invoices are generated automatically."
+      }
+    ]
+  },
+  "contact": {
+    "sectionTitle": "Contact us",
+    "sectionSubtitle": "Have questions? Write to us, we'll respond within 24 hours.",
+    "name": "Full name",
+    "email": "Email address",
+    "message": "Message",
+    "send": "Send message",
+    "success": "Message sent! We'll respond within 24 hours.",
+    "errorGeneric": "Something went wrong. Please try again later.",
+    "errorRateLimit": "Too many messages. Please try again in a minute.",
+    "info": {
+      "email": "contact@pactrack.pl",
+      "phone": "+48 123 456 789",
+      "address": "Poland"
+    }
+  },
+  "footer": {
+    "description": "Comprehensive parcel tracking system for e-commerce sellers.",
+    "product": "Product",
+    "company": "Company",
+    "legal": "Legal",
+    "links": {
+      "features": "Features",
+      "pricing": "Pricing",
+      "blog": "Blog",
+      "aboutUs": "About us",
+      "contact": "Contact",
+      "caseStudies": "Case Studies",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "cookies": "Cookies"
+    },
+    "copyright": "© 2025 PacTrack. All rights reserved.",
+    "app": "Go to app"
+  },
+  "blog": {
+    "title": "PacTrack Blog",
+    "subtitle": "Tips, news and inspiration for e-commerce sellers.",
+    "readMore": "Read more",
+    "backToBlog": "Back to blog",
+    "publishedOn": "Published on",
+    "byAuthor": "by",
+    "categories": "Categories",
+    "recentPosts": "Recent posts",
+    "noPosts": "No blog posts available."
+  },
+  "caseStudies": {
+    "title": "Case Studies",
+    "subtitle": "See how our customers use PacTrack to grow their business."
+  }
+}
