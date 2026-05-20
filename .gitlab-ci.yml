@@ -1,0 +1,110 @@
+###############################################################################
+# GitLab CI/CD — PacTrack Marketing Landing Page
+#
+# Pipeline deployuje Next.js landing page do Azure Static Web Apps
+#
+# Wymagania:
+#   1. Azure Static Web Apps musi być stworzone RĘCZNIE w Azure Portal
+#   2. Zmienne CI/CD w GitLab (Settings > CI/CD > Variables):
+#      - AZURE_STATIC_WEB_APPS_API_TOKEN (masked + protected)
+#
+# Flow:
+#   - branch main/develop → build + deploy do Azure SWA
+###############################################################################
+
+stages:
+  - build
+  - deploy
+
+variables:
+  NODE_VERSION: "18"
+
+# ---------------------------------------------------------------------------
+# BUILD - Next.js
+# ---------------------------------------------------------------------------
+build:
+  stage: build
+  image: node:18-alpine
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - node_modules/
+      - .next/cache/
+  script:
+    - echo "==> Installing dependencies..."
+    - npm ci
+    - echo "==> Building Next.js app..."
+    - npm run build
+    - echo "==> Build completed successfully"
+    - ls -la .next/
+  artifacts:
+    paths:
+      - .next/
+      - public/
+      - package.json
+      - next.config.mjs
+    expire_in: 1 hour
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "develop"'
+
+# ---------------------------------------------------------------------------
+# DEPLOY - Azure Static Web Apps
+# ---------------------------------------------------------------------------
+deploy:azure-swa:
+  stage: deploy
+  image: mcr.microsoft.com/azure-cli:latest
+  dependencies:
+    - build
+  before_script:
+    - echo "==> Installing Node.js and npm..."
+    - apk add --no-cache nodejs npm
+    - echo "==> Installing Azure Static Web Apps CLI..."
+    - npm install -g @azure/static-web-apps-cli
+  script:
+    - echo "==> Deploying to Azure Static Web Apps..."
+    - |
+      swa deploy \
+        --deployment-token $AZURE_STATIC_WEB_APPS_API_TOKEN \
+        --app-location . \
+        --output-location .next \
+        --env production
+    - echo "==> Deployment completed successfully"
+  environment:
+    name: production
+    url: https://pactrack.pl
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: on_success
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+      when: manual
+
+# ---------------------------------------------------------------------------
+# DEPLOY - Pre-production (manual)
+# ---------------------------------------------------------------------------
+deploy:azure-swa-preprod:
+  stage: deploy
+  image: mcr.microsoft.com/azure-cli:latest
+  dependencies:
+    - build
+  before_script:
+    - echo "==> Installing Node.js and npm..."
+    - apk add --no-cache nodejs npm
+    - echo "==> Installing Azure Static Web Apps CLI..."
+    - npm install -g @azure/static-web-apps-cli
+  script:
+    - echo "==> Deploying to Azure Static Web Apps (pre-prod)..."
+    - |
+      swa deploy \
+        --deployment-token $AZURE_STATIC_WEB_APPS_API_TOKEN \
+        --app-location . \
+        --output-location .next \
+        --env staging
+    - echo "==> Deployment completed successfully"
+  environment:
+    name: staging
+    url: https://pactrack-staging.azurestaticapps.net
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+      when: manual
