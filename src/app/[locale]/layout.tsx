@@ -1,5 +1,5 @@
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages, getTranslations } from 'next-intl/server';
+import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { Inter } from 'next/font/google';
 import { routing } from '@/i18n/routing';
@@ -17,6 +17,10 @@ type Props = {
   params: { locale: string };
 };
 
+export function generateStaticParams() {
+  return [{ locale: 'pl' }, { locale: 'en' }];
+}
+
 export async function generateMetadata({ params }: { params: { locale: string } }) {
   const t = await getTranslations({ locale: params.locale, namespace: 'metadata' });
 
@@ -27,9 +31,9 @@ export async function generateMetadata({ params }: { params: { locale: string } 
     },
     description: t('description'),
     alternates: {
-      canonical: params.locale === 'pl' ? 'https://pactrack.pl' : `https://pactrack.pl/en`,
+      canonical: `https://pactrack.pl/${params.locale}`,
       languages: {
-        pl: 'https://pactrack.pl',
+        pl: 'https://pactrack.pl/pl',
         en: 'https://pactrack.pl/en',
       },
     },
@@ -66,6 +70,8 @@ export default async function LocaleLayout({ children, params }: Props) {
   if (!routing.locales.includes(locale as any)) {
     notFound();
   }
+
+  setRequestLocale(locale);
 
   const messages = await getMessages();
 

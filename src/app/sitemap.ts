@@ -11,7 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   for (const locale of locales) {
     for (const page of staticPages) {
-      const url = locale === 'pl' ? `${BASE_URL}${page}` : `${BASE_URL}/${locale}${page}`;
+      const url = `${BASE_URL}/${locale}${page}`;
       entries.push({
         url,
         lastModified: new Date(),
@@ -22,10 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     const slugs = getAllSlugs(locale);
     for (const slug of slugs) {
-      const url =
-        locale === 'pl'
-          ? `${BASE_URL}/blog/${slug}`
-          : `${BASE_URL}/${locale}/blog/${slug}`;
+      const url = `${BASE_URL}/${locale}/blog/${slug}`;
       entries.push({
         url,
         lastModified: new Date(),

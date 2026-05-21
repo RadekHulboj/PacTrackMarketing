@@ -59,7 +59,7 @@ deploy:azure-swa:
     - build
   before_script:
     - echo "==> Installing Node.js and npm..."
-    - apk add --no-cache nodejs npm
+    - apt-get update && apt-get install -y nodejs npm
     - echo "==> Installing Azure Static Web Apps CLI..."
     - npm install -g @azure/static-web-apps-cli
   script:
@@ -90,7 +90,7 @@ deploy:azure-swa-preprod:
     - build
   before_script:
     - echo "==> Installing Node.js and npm..."
-    - apk add --no-cache nodejs npm
+    - apt-get update && apt-get install -y nodejs npm
     - echo "==> Installing Azure Static Web Apps CLI..."
     - npm install -g @azure/static-web-apps-cli
   script:

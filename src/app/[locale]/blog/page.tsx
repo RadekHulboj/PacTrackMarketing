@@ -1,4 +1,4 @@
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { getAllPosts } from '@/lib/blog';
 import { Link } from '@/i18n/routing';
 import { Calendar, User, ArrowRight } from 'lucide-react';
@@ -16,6 +16,7 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function BlogPage({ params }: Props) {
+  setRequestLocale(params.locale);
   const t = await getTranslations({ locale: params.locale, namespace: 'blog' });
   const posts = getAllPosts(params.locale);
 
