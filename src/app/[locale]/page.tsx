@@ -1,3 +1,4 @@
+import { setRequestLocale } from 'next-intl/server';
 import Hero from '@/components/Hero';
 import Features from '@/components/Features';
 import Pricing from '@/components/Pricing';
@@ -6,7 +7,12 @@ import FAQ from '@/components/FAQ';
 import Contact from '@/components/Contact';
 import { SchemaOrg } from '@/components/SchemaOrg';
 
-export default function HomePage() {
+type Props = {
+  params: { locale: string };
+};
+
+export default function HomePage({ params }: Props) {
+  setRequestLocale(params.locale);
   return (
     <>
       <SchemaOrg />

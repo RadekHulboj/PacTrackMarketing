@@ -1,0 +1,13 @@
+{
+  "routes": [
+    {
+      "route": "/",
+      "redirect": "/pl",
+      "statusCode": 301
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "/pl.html",
+    "exclude": ["/_next/*", "/images/*", "/*.{png,jpg,svg,ico,webp,xml,txt,json}"]
+  }
+}

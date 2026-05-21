@@ -8,43 +8,22 @@ export default function Contact() {
   const t = useTranslations('contact');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
 
     const formData = new FormData(e.currentTarget);
+    const name = formData.get('name') as string;
+    const email = formData.get('email') as string;
+    const message = formData.get('message') as string;
 
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.get('name'),
-          email: formData.get('email'),
-          message: formData.get('message'),
-        }),
-      });
+    const subject = encodeURIComponent(`Kontakt od ${name}`);
+    const body = encodeURIComponent(`Imię: ${name}\nEmail: ${email}\n\nWiadomość:\n${message}`);
+    window.open(`mailto:kontakt@pactrack.pl?subject=${subject}&body=${body}`);
 
-      if (response.status === 429) {
-        setError(t('errorRateLimit'));
-        return;
-      }
-
-      if (!response.ok) {
-        const data = await response.json().catch(() => ({}));
-        setError(data.error || t('errorGeneric'));
-        return;
-      }
-
-      setSubmitted(true);
-    } catch {
-      setError(t('errorGeneric'));
-    } finally {
-      setLoading(false);
-    }
+    setLoading(false);
+    setSubmitted(true);
   };
 
   return (
@@ -140,9 +119,6 @@ export default function Contact() {
                   className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
                 />
               </div>
-              {error && (
-                <p className="text-sm font-medium text-red-600">{error}</p>
-              )}
               <button
                 type="submit"
                 disabled={loading}

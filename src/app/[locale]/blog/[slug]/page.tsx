@@ -1,4 +1,4 @@
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { getPostBySlug, getAllSlugs } from '@/lib/blog';
 import { Link } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
@@ -46,6 +46,7 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function BlogPostPage({ params }: Props) {
+  setRequestLocale(params.locale);
   const t = await getTranslations({ locale: params.locale, namespace: 'blog' });
   const post = await getPostBySlug(params.locale, params.slug);
 
