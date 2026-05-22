@@ -81,9 +81,10 @@ Your content here...
 
 ## Deployment
 
-Recommended: Vercel, Netlify, or Azure Static Web Apps.
+On-prem Kubernetes via Helm:
 
 ```bash
-npm run build
-npm run start
+./docker/k8s_build_and_load_marketing.sh
 ```
+
+See `docs/KUBERNETES-SETUP.md` for details.

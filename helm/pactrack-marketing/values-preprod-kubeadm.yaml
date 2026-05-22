@@ -1,0 +1,40 @@
+# =============================================================================
+# PacTrack Marketing — On-prem kubeadm values
+# Serwer: 192.168.1.9
+# =============================================================================
+
+environment: onprem
+
+image:
+  repository: pactrack-marketing
+  tag: latest
+  pullPolicy: IfNotPresent
+
+replicas: 1
+containerPort: 3000
+
+env:
+  CONTACT_EMAIL: "kontakt@pactrack.pl"
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 128Mi
+  limits:
+    cpu: 300m
+    memory: 256Mi
+
+service:
+  name: pactrack-marketing
+  type: ClusterIP
+  port: 3000
+  nodePort: null
+
+ingress:
+  enabled: true
+  className: nginx
+  host: pactrack.pl
+  annotations: {}
+  tls:
+    enabled: false
+    secretName: pactrack-marketing-tls

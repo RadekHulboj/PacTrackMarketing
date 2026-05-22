@@ -1,0 +1,11 @@
+PacTrack Marketing deployed!
+
+Namespace: {{ .Release.Namespace }}
+Image:     {{ .Values.image.repository }}:{{ .Values.image.tag }}
+Service:   {{ .Values.service.name }}:{{ .Values.service.port }}
+
+{{- if .Values.ingress.enabled }}
+Ingress:   {{ .Values.ingress.host }} → {{ .Values.service.name }}:{{ .Values.service.port }}
+{{- end }}
+
+Routing: Cloudflare Tunnel → NGINX Ingress → {{ .Values.service.name }}:{{ .Values.service.port }}

@@ -1,6 +1,6 @@
 # Cloudflare Tunnel - Setup Guide
 
-Instrukcja instalacji i konfiguracji Cloudflare Tunnel na Ubuntu Server 192.168.1.9 dla routingu ruchu do `pactrack.pl` (Azure SWA) i `app.pactrack.pl` (Kubernetes).
+Instrukcja instalacji i konfiguracji Cloudflare Tunnel na Ubuntu Server 192.168.1.9 dla routingu ruchu do `pactrack.pl` (Kubernetes — marketing) i `app.pactrack.pl` (Kubernetes — aplikacja).
 
 ---
 
@@ -12,8 +12,8 @@ Internet
 Cloudflare Edge (DNS + CDN + SSL)
     ↓
 Cloudflare Tunnel (cloudflared na 192.168.1.9)
-    ├─ pactrack.pl → Azure Static Web Apps
-    └─ app.pactrack.pl → Kubernetes Ingress (localhost:80)
+    ├─ pactrack.pl → Kubernetes Ingress (localhost:80) → pactrack-marketing:3000
+    └─ app.pactrack.pl → Kubernetes Ingress (localhost:80) → frontend:80 / backend:8080
 ```
 
 **Korzyści:**
@@ -132,32 +132,30 @@ sudo mkdir -p /etc/cloudflared
 sudo nano /etc/cloudflared/config.yml
 ```
 
-Wklej (zamień `<TUNNEL_ID>` i `<AZURE_SWA_URL>`):
+Wklej (zamień `<TUNNEL_ID>`):
 ```yaml
 tunnel: <TUNNEL_ID>
 credentials-file: /home/radek/.cloudflared/<TUNNEL_ID>.json
 
 # Routing rules
 ingress:
-  # pactrack.pl → Azure Static Web Apps
+  # pactrack.pl → Kubernetes Ingress → pactrack-marketing:3000
   - hostname: pactrack.pl
-    service: https://pactrack-landing.azurestaticapps.net
-    originRequest:
-      noTLSVerify: false
+    service: http://localhost:80
   
-  # app.pactrack.pl → Kubernetes Ingress
+  # app.pactrack.pl → Kubernetes Ingress → frontend/backend
   - hostname: app.pactrack.pl
     service: http://localhost:80
-    originRequest:
-      noTLSVerify: true
   
   # Catch-all (404)
   - service: http_status:404
 ```
 
 **Wyjaśnienie:**
-- `pactrack.pl` → proxy do Azure SWA (HTTPS)
-- `app.pactrack.pl` → proxy do Kubernetes NGINX Ingress (HTTP localhost:80)
+- Oba hosty kierują na NGINX Ingress (localhost:80)
+- NGINX Ingress rozróżnia po nagłówku `Host` i kieruje do odpowiedniego serwisu
+- `pactrack.pl` → pactrack-marketing:3000 (namespace: pactrack-marketing)
+- `app.pactrack.pl` → frontend:80 / backend:8080 (namespace: parcel-tracking)
 - Catch-all → zwraca 404 dla nieznanych domen
 
 ### 4.3 Skopiuj credentials file
@@ -205,8 +203,8 @@ W nowej sesji SSH:
 # Test app.pactrack.pl → Kubernetes
 curl -H "Host: app.pactrack.pl" http://localhost:80
 
-# Test pactrack.pl → Azure SWA (wymaga DNS)
-# (na razie nie zadziała - DNS będzie w następnym kroku)
+# Test pactrack.pl → Kubernetes marketing
+curl -H "Host: pactrack.pl" http://localhost:80
 ```
 
 Jeśli Kubernetes zwraca odpowiedź - routing działa!
@@ -285,7 +283,7 @@ Krótko:
 # Test app.pactrack.pl (Kubernetes)
 curl -I https://app.pactrack.pl
 
-# Test pactrack.pl (Azure SWA)
+# Test pactrack.pl (Kubernetes marketing)
 curl -I https://pactrack.pl
 ```
 
@@ -409,7 +407,8 @@ rm -rf ~/.cloudflared
 Po skonfigurowaniu Cloudflare Tunnel:
 1. ✅ Dodaj DNS records w Cloudflare (patrz: `CLOUDFLARE-DNS-SETUP.md`)
 2. ✅ Przetestuj routing dla obu domen
-3. ✅ Upgrade Helm chart dla `app.pactrack.pl`
+3. ✅ Deploy marketing: `./docker/k8s_build_and_load_marketing.sh`
+4. ✅ Szczegóły Kubernetes: `docs/KUBERNETES-SETUP.md`
 
 ---
 

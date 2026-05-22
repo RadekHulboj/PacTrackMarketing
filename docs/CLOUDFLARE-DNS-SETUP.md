@@ -7,9 +7,8 @@ Instrukcja konfiguracji DNS records w Cloudflare dla migracji domen: `pactrack.p
 ## Architektura DNS
 
 ```
-pactrack.pl (CNAME) → <tunnel-id>.cfargotunnel.com → Cloudflare Tunnel → Azure SWA
-app.pactrack.pl (CNAME) → <tunnel-id>.cfargotunnel.com → Cloudflare Tunnel → Kubernetes
-asuid.pactrack.pl (TXT) → <verification-token> (Azure SWA verification)
+pactrack.pl (CNAME) → <tunnel-id>.cfargotunnel.com → Cloudflare Tunnel → Kubernetes (marketing)
+app.pactrack.pl (CNAME) → <tunnel-id>.cfargotunnel.com → Cloudflare Tunnel → Kubernetes (aplikacja)
 ```
 
 ---
@@ -18,7 +17,6 @@ asuid.pactrack.pl (TXT) → <verification-token> (Azure SWA verification)
 
 - Konto Cloudflare z domeną `pactrack.pl`
 - Cloudflare Tunnel ID (z `CLOUDFLARE-TUNNEL-SETUP.md`)
-- Azure SWA verification token (z `AZURE-SWA-SETUP.md`)
 
 ---
 
@@ -94,39 +92,17 @@ Target: 1a2b3c4d-5e6f-7g8h-9i0j-k1l2m3n4o5p6.cfargotunnel.com
 Proxy: Proxied (orange cloud)
 ```
 
-### 2.4 Dodaj TXT dla Azure SWA verification
-
-**UWAGA:** Ten token pochodzi z Azure Portal (patrz `AZURE-SWA-SETUP.md` Krok 5.1).
-
-Kliknij **Add record** i wypełnij:
-- **Type:** TXT
-- **Name:** `asuid`
-- **Content:** `<VERIFICATION_TOKEN_FROM_AZURE>`
-- **Proxy status:** ❌ DNS only (grey cloud) - WYŁĄCZONE
-- **TTL:** Auto
-
-Kliknij **Save**.
-
-**Przykład:**
-```
-Type: TXT
-Name: asuid
-Content: 1A2B3C4D5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W4X5Y6Z
-Proxy: DNS only (grey cloud)
-```
-
 ---
 
 ## Krok 3: Weryfikacja DNS Records
 
 ### 3.1 Sprawdź DNS records w Cloudflare Dashboard
 
-Powinny być widoczne 3 rekordy:
+Powinny być widoczne 2 rekordy:
 ```
 Type   Name    Content
 CNAME  @       <tunnel-id>.cfargotunnel.com (Proxied)
 CNAME  app     <tunnel-id>.cfargotunnel.com (Proxied)
-TXT    asuid   <verification-token> (DNS only)
 ```
 
 ### 3.2 Test DNS propagacji
@@ -138,8 +114,8 @@ dig pactrack.pl CNAME +short
 # Test CNAME dla app.pactrack.pl
 dig app.pactrack.pl CNAME +short
 
-# Test TXT dla Azure verification
-dig asuid.pactrack.pl TXT +short
+# Test rozwiązywania DNS
+nslookup pactrack.pl
 ```
 
 **UWAGA:** Jeśli CNAME jest proxied (orange cloud), `dig` może nie pokazać `cfargotunnel.com` bezpośrednio - to normalne. Cloudflare zwraca swoje IP.
@@ -188,13 +164,13 @@ Jeśli wcześniej miałeś A/AAAA/CNAME records dla `pactrack.pl` lub `app.pactr
 ### 6.1 Test z przeglądarki
 
 Otwórz w przeglądarce:
-- `https://pactrack.pl` - powinien pokazać landing page (Azure SWA)
+- `https://pactrack.pl` - powinien pokazać landing page (Kubernetes marketing)
 - `https://app.pactrack.pl` - powinien pokazać główną aplikację (Kubernetes)
 
 ### 6.2 Test z curl
 
 ```bash
-# Test pactrack.pl (Azure SWA)
+# Test pactrack.pl (Kubernetes marketing)
 curl -I https://pactrack.pl
 
 # Oczekiwany output:
@@ -222,30 +198,6 @@ openssl s_client -connect pactrack.pl:443 -servername pactrack.pl < /dev/null 2>
 # notBefore=...
 # notAfter=...
 ```
-
----
-
-## Krok 7: Weryfikacja Azure SWA Custom Domain
-
-### 7.1 Sprawdź weryfikację w Azure Portal
-
-1. Przejdź do Azure Portal → Static Web App → Custom domains
-2. Sprawdź status `pactrack.pl`:
-   - ✅ **Validated** - domena zweryfikowana
-   - ⏳ **Pending** - czeka na propagację DNS (poczekaj 5-10 minut)
-   - ❌ **Failed** - błąd weryfikacji (sprawdź TXT record)
-
-### 7.2 Jeśli weryfikacja failed
-
-```bash
-# Sprawdź czy TXT record jest widoczny
-dig asuid.pactrack.pl TXT +short
-
-# Powinno zwrócić:
-# "<VERIFICATION_TOKEN>"
-```
-
-Jeśli TXT record jest poprawny, kliknij **Validate** ponownie w Azure Portal.
 
 ---
 
@@ -286,19 +238,6 @@ sudo systemctl status cloudflared
 sudo journalctl -u cloudflared -n 50
 ```
 
-### Błąd: "Azure SWA custom domain validation failed"
-
-**Przyczyna:** TXT record nie propagował się lub jest niepoprawny.
-
-**Rozwiązanie:**
-```bash
-# Sprawdź TXT record
-dig asuid.pactrack.pl TXT +short
-
-# Sprawdź czy token zgadza się z Azure Portal
-# Poczekaj 10-15 minut i spróbuj ponownie
-```
-
 ---
 
 ## Rollback (przywrócenie starych DNS)
@@ -333,9 +272,8 @@ Proxy: Proxied
 
 Po skonfigurowaniu DNS:
 1. ✅ Przetestuj obie domeny w przeglądarce
-2. ✅ Zweryfikuj Azure SWA custom domain
-3. ✅ Upgrade Helm chart na Kubernetes (deploy z nową domeną `app.pactrack.pl`)
-4. ✅ Przetestuj integrację Allegro (redirect URI zmieniony na `app.pactrack.pl`)
+2. ✅ Deploy marketing: `./docker/k8s_build_and_load_marketing.sh`
+3. ✅ Przetestuj integrację Allegro (redirect URI: `app.pactrack.pl`)
 
 ---
 

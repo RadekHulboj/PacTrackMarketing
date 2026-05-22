@@ -111,30 +111,23 @@ Strona jest zoptymalizowana pod SEO:
 
 ## Deployment
 
-### Opcja 1: Vercel (zalecane)
+### Kubernetes (on-prem)
 
-1. Zaloguj się na [vercel.com](https://vercel.com)
-2. Importuj repozytorium Git
-3. Vercel automatycznie wykrywa Next.js
-4. Ustaw domeny: `pactrack.pl` (marketing), `app.pactrack.pl` (aplikacja)
+Deployment odbywa się na on-prem Kubernetes (kubeadm) za pomocą skryptu:
 
-### Opcja 2: Azure Static Web Apps
+```bash
+./docker/k8s_build_and_load_marketing.sh
+```
 
-1. Przejdź do portal.azure.com
-2. Utwórz "Static Web App"
-3. Source: GitLab/GitHub
-4. Build preset: Other
-5. Output location: `/`
-6. Ustaw domeny
+**Skrypt automatycznie:**
+1. Buduje Docker image z Next.js
+2. Przesyła image na serwer 192.168.1.9
+3. Ładuje image do containerd
+4. Deployuje przez Helm na Kubernetes
 
-### Opcja 3: Netlify
+**Routing:** Cloudflare Tunnel → NGINX Ingress → pactrack-marketing:3000
 
-1. Zaloguj się na [netlify.com](https://netlify.com)
-2. "New site from Git"
-3. Wybierz repozytorium
-4. Build command: (puste)
-5. Publish directory: `/`
-6. Ustaw domeny
+Szczegóły: `docs/KUBERNETES-SETUP.md`
 
 ## Ważne uwagi
 
