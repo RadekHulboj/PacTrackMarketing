@@ -147,7 +147,7 @@
       },
       {
         "question": "Jakie formy płatności akceptujecie?",
-        "answer": "Akceptujemy przelewy bankowe, karty kredytowe (Visa, Mastercard) oraz płatności przez PayU. Faktury VAT wystawiamy automatycznie."
+        "answer": "Akceptujemy BLIK, przelewy bankowe, karty kredytowe (Visa, Mastercard) przez Przelewy24. Faktury VAT wystawiamy automatycznie."
       }
     ]
   },
@@ -162,8 +162,8 @@
     "errorGeneric": "Wystąpił błąd. Spróbuj ponownie później.",
     "errorRateLimit": "Zbyt wiele wiadomości. Spróbuj ponownie za minutę.",
     "info": {
-      "email": "kontakt@pactrack.pl",
-      "phone": "+48 123 456 789",
+      "email": "radekhulboj@gmail.com",
+      "phone": "+48 793 154 770",
       "address": "Polska"
     }
   },

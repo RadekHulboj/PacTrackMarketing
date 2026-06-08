@@ -2,17 +2,58 @@
 
 import { useTranslations } from 'next-intl';
 import { Check } from 'lucide-react';
+import { useState } from 'react';
 
 const APP_URL = 'https://app.pactrack.pl';
+const PAYMENT_API_URL = process.env.NEXT_PUBLIC_PAYMENT_API_URL || 'https://pactrack-payment-functions.azurewebsites.net/api';
 
 export default function Pricing() {
   const t = useTranslations('pricing');
+  const [loading, setLoading] = useState<string | null>(null);
 
   const plans = [
-    { key: 'free', highlighted: false },
-    { key: 'pro', highlighted: true },
-    { key: 'enterprise', highlighted: false },
+    { key: 'free', highlighted: false, planId: 'STARTER' },
+    { key: 'pro', highlighted: true, planId: 'PROFESSIONAL' },
+    { key: 'enterprise', highlighted: false, planId: 'ENTERPRISE' },
   ] as const;
+
+  const handleSubscribe = async (planId: string, key: string) => {
+    if (key === 'free') {
+      window.location.href = APP_URL;
+      return;
+    }
+    if (key === 'enterprise') {
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+
+    setLoading(planId);
+    try {
+      const response = await fetch(`${PAYMENT_API_URL}/subscriptions/create`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: 'guest', // Will be replaced after login
+          email: '', // Will be collected in payment flow
+          plan: planId,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.paymentUrl) {
+        window.location.href = data.paymentUrl;
+      } else if (data.status === 'active') {
+        window.location.href = APP_URL;
+      } else {
+        console.error('Payment error:', data.error);
+      }
+    } catch (error) {
+      console.error('Payment request failed:', error);
+    } finally {
+      setLoading(null);
+    }
+  };
 
   return (
     <section id="pricing" className="section-padding bg-gray-50">
@@ -27,7 +68,7 @@ export default function Pricing() {
         </div>
 
         <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-3">
-          {plans.map(({ key, highlighted }) => {
+          {plans.map(({ key, highlighted, planId }) => {
             const features: string[] = t.raw(`${key}.features`);
             return (
               <div
@@ -59,16 +100,17 @@ export default function Pricing() {
                     </li>
                   ))}
                 </ul>
-                <a
-                  href={key === 'enterprise' ? '#contact' : APP_URL}
+                <button
+                  onClick={() => handleSubscribe(planId, key)}
+                  disabled={loading === planId}
                   className={`mt-8 block w-full rounded-xl py-3 text-center text-sm font-semibold transition-colors ${
                     highlighted
-                      ? 'bg-primary-600 text-white hover:bg-primary-700'
-                      : 'border border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
+                      ? 'bg-primary-600 text-white hover:bg-primary-700 disabled:bg-primary-400'
+                      : 'border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-50'
                   }`}
                 >
-                  {t(`${key}.cta`)}
-                </a>
+                  {loading === planId ? 'Przetwarzanie...' : t(`${key}.cta`)}
+                </button>
               </div>
             );
           })}
