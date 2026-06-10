@@ -164,7 +164,10 @@
     "info": {
       "email": "radekhulboj@gmail.com",
       "phone": "+48 793 154 770",
-      "address": "Polska"
+      "address": "Polska",
+      "showPhone": "Pokaż numer",
+      "showEmail": "Pokaż email",
+      "showAddress": "Pokaż adres"
     }
   },
   "footer": {
@@ -200,5 +203,22 @@
   "caseStudies": {
     "title": "Case Studies",
     "subtitle": "Zobacz jak nasi klienci wykorzystują PacTrack do rozwoju swojego biznesu."
+  },
+  "loginModal": {
+    "title": "Zaloguj się, aby subskrybować",
+    "subtitle": "Zaloguj się na swoje konto, aby przejść na plan",
+    "emailLabel": "Adres email",
+    "passwordLabel": "Hasło",
+    "loginButton": "Zaloguj się i kontynuuj",
+    "loggingIn": "Logowanie...",
+    "orDivider": "lub",
+    "googleButton": "Kontynuuj z Google",
+    "noAccount": "Nie masz konta?",
+    "registerLink": "Załóż konto za darmo",
+    "errorInvalidCredentials": "Nieprawidłowy email lub hasło.",
+    "errorLoginFailed": "Logowanie nie powiodło się. Spróbuj ponownie.",
+    "errorAccountNotActive": "Konto nie jest aktywne. Sprawdź email, aby je aktywować.",
+    "errorNetwork": "Błąd połączenia. Spróbuj ponownie.",
+    "errorGoogleFailed": "Nie udało się zainicjować logowania Google. Spróbuj ponownie."
   }
 }

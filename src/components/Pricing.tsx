@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { Check } from 'lucide-react';
 import { useState } from 'react';
+import LoginModal, { LoggedInUser } from './LoginModal';
 
 const APP_URL = 'https://app.pactrack.pl';
 const PAYMENT_API_URL = process.env.NEXT_PUBLIC_PAYMENT_API_URL || 'https://pactrack-payment-functions.azurewebsites.net/api';
@@ -10,6 +11,8 @@ const PAYMENT_API_URL = process.env.NEXT_PUBLIC_PAYMENT_API_URL || 'https://pact
 export default function Pricing() {
   const t = useTranslations('pricing');
   const [loading, setLoading] = useState<string | null>(null);
+  const [loginModal, setLoginModal] = useState<{ planId: string; planName: string } | null>(null);
+  const [paymentError, setPaymentError] = useState('');
 
   const plans = [
     { key: 'free', highlighted: false, planId: 'STARTER' },
@@ -17,24 +20,19 @@ export default function Pricing() {
     { key: 'enterprise', highlighted: false, planId: 'ENTERPRISE' },
   ] as const;
 
-  const handleSubscribe = async (planId: string, key: string) => {
-    if (key === 'free') {
-      window.location.href = APP_URL;
-      return;
-    }
-    if (key === 'enterprise') {
-      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-      return;
-    }
-
+  const initiatePayment = async (planId: string, user: LoggedInUser) => {
     setLoading(planId);
+    setPaymentError('');
     try {
       const response = await fetch(`${PAYMENT_API_URL}/subscriptions/create`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`,
+        },
         body: JSON.stringify({
-          userId: 'guest', // Will be replaced after login
-          email: '', // Will be collected in payment flow
+          userId: user.userId,
+          email: user.email,
           plan: planId,
         }),
       });
@@ -50,12 +48,47 @@ export default function Pricing() {
       }
     } catch (error) {
       console.error('Payment request failed:', error);
+      setPaymentError('Payment failed. Please try again.');
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('pactrack_jwt');
+      }
     } finally {
       setLoading(null);
     }
   };
 
+  const handleSubscribe = (planId: string, key: string, planName: string) => {
+    if (key === 'free') {
+      window.location.href = APP_URL;
+      return;
+    }
+    if (key === 'enterprise') {
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+
+    const storedToken = typeof window !== 'undefined' ? localStorage.getItem('pactrack_jwt') : null;
+    if (storedToken) {
+      const payload = JSON.parse(atob(storedToken.split('.')[1]));
+      const userId = payload.userId || payload.sub;
+      const email = payload.sub || payload.email;
+      if (userId && email) {
+        initiatePayment(planId, { userId: String(userId), email, token: storedToken });
+        return;
+      }
+    }
+
+    setLoginModal({ planId, planName });
+  };
+
+  const handleLoginSuccess = (user: LoggedInUser) => {
+    if (!loginModal) return;
+    setLoginModal(null);
+    initiatePayment(loginModal.planId, user);
+  };
+
   return (
+    <>
     <section id="pricing" className="section-padding bg-gray-50">
       <div className="container-narrow">
         <div className="text-center">
@@ -101,7 +134,7 @@ export default function Pricing() {
                   ))}
                 </ul>
                 <button
-                  onClick={() => handleSubscribe(planId, key)}
+                  onClick={() => handleSubscribe(planId, key, t(`${key}.name`))}
                   disabled={loading === planId}
                   className={`mt-8 block w-full rounded-xl py-3 text-center text-sm font-semibold transition-colors ${
                     highlighted
@@ -117,5 +150,21 @@ export default function Pricing() {
         </div>
       </div>
     </section>
+
+    {paymentError && (
+      <div className="mx-auto max-w-md rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">
+        {paymentError}
+      </div>
+    )}
+
+    {loginModal && (
+      <LoginModal
+        planId={loginModal.planId}
+        planName={loginModal.planName}
+        onClose={() => setLoginModal(null)}
+        onSuccess={handleLoginSuccess}
+      />
+    )}
+    </>
   );
 }

@@ -8,6 +8,15 @@ export default function Contact() {
   const t = useTranslations('contact');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [phoneVisible, setPhoneVisible] = useState(false);
+  const [emailVisible, setEmailVisible] = useState(false);
+  const [addressVisible, setAddressVisible] = useState(false);
+
+  const revealContact = (type: 'phone' | 'email' | 'address') => {
+    if (type === 'phone') setPhoneVisible(true);
+    if (type === 'email') setEmailVisible(true);
+    if (type === 'address') setAddressVisible(true);
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -47,7 +56,21 @@ export default function Contact() {
               </div>
               <div>
                 <h3 className="font-semibold text-gray-900">Email</h3>
-                <p className="text-gray-600">{t('info.email')}</p>
+                {emailVisible ? (
+                  <a
+                    href={`mailto:${t('info.email')}`}
+                    className="text-gray-600 hover:text-primary-600 transition-colors"
+                  >
+                    {t('info.email')}
+                  </a>
+                ) : (
+                  <button
+                    onClick={() => revealContact('email')}
+                    className="text-gray-600 hover:text-primary-600 transition-colors cursor-pointer"
+                  >
+                    {t('info.showEmail')}
+                  </button>
+                )}
               </div>
             </div>
             <div className="flex items-start gap-4">
@@ -56,7 +79,21 @@ export default function Contact() {
               </div>
               <div>
                 <h3 className="font-semibold text-gray-900">Telefon</h3>
-                <p className="text-gray-600">{t('info.phone')}</p>
+                {phoneVisible ? (
+                  <a
+                    href={`tel:${t('info.phone').replace(/\s/g, '')}`}
+                    className="text-gray-600 hover:text-primary-600 transition-colors"
+                  >
+                    {t('info.phone')}
+                  </a>
+                ) : (
+                  <button
+                    onClick={() => revealContact('phone')}
+                    className="text-gray-600 hover:text-primary-600 transition-colors cursor-pointer"
+                  >
+                    {t('info.showPhone')}
+                  </button>
+                )}
               </div>
             </div>
             <div className="flex items-start gap-4">
@@ -65,7 +102,23 @@ export default function Contact() {
               </div>
               <div>
                 <h3 className="font-semibold text-gray-900">Adres</h3>
-                <p className="text-gray-600">{t('info.address')}</p>
+                {addressVisible ? (
+                  <a
+                    href={`https://maps.google.com/?q=${encodeURIComponent(t('info.address'))}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-600 hover:text-primary-600 transition-colors"
+                  >
+                    {t('info.address')}
+                  </a>
+                ) : (
+                  <button
+                    onClick={() => revealContact('address')}
+                    className="text-gray-600 hover:text-primary-600 transition-colors cursor-pointer"
+                  >
+                    {t('info.showAddress')}
+                  </button>
+                )}
               </div>
             </div>
           </div>

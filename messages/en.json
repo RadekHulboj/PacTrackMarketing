@@ -164,7 +164,10 @@
     "info": {
       "email": "radekhulboj@gmail.com",
       "phone": "+48 793 154 770",
-      "address": "Poland"
+      "address": "Poland",
+      "showPhone": "Show phone",
+      "showEmail": "Show email",
+      "showAddress": "Show address"
     }
   },
   "footer": {
@@ -200,5 +203,22 @@
   "caseStudies": {
     "title": "Case Studies",
     "subtitle": "See how our customers use PacTrack to grow their business."
+  },
+  "loginModal": {
+    "title": "Log in to subscribe",
+    "subtitle": "Log in to your account to upgrade to the",
+    "emailLabel": "Email address",
+    "passwordLabel": "Password",
+    "loginButton": "Log in and continue",
+    "loggingIn": "Logging in...",
+    "orDivider": "or",
+    "googleButton": "Continue with Google",
+    "noAccount": "Don't have an account?",
+    "registerLink": "Create account for free",
+    "errorInvalidCredentials": "Invalid email or password.",
+    "errorLoginFailed": "Login failed. Please try again.",
+    "errorAccountNotActive": "Account is not active. Check your email to activate it.",
+    "errorNetwork": "Connection error. Please try again.",
+    "errorGoogleFailed": "Could not initiate Google login. Please try again."
   }
 }
