@@ -76,13 +76,12 @@ export default function LoginModal({ planId, planName, onClose, onSuccess }: Log
     setGoogleLoading(true);
     setError('');
     try {
-      const response = await fetch(`${BACKEND_URL}/api/google-auth/login?role=SELLER`, {
+      const response = await fetch(`${BACKEND_URL}/api/google-auth/login?role=SELLER&plan=${planId}`, {
         credentials: 'include',
       });
       const data = await response.json();
       if (data.authUrl) {
-        const returnUrl = encodeURIComponent(window.location.href + `?plan=${planId}&subscribe=1`);
-        window.location.href = data.authUrl + `&state_extra=${returnUrl}`;
+        window.location.href = data.authUrl;
       } else {
         setError(t('errorGoogleFailed'));
       }
