@@ -68,7 +68,7 @@
     },
     "pro": {
       "name": "Professional",
-      "price": "$25",
+      "price": "$0.25",
       "description": "For growing businesses",
       "popular": "Most popular",
       "features": [
