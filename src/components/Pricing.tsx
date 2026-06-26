@@ -6,7 +6,7 @@ import { useState } from 'react';
 import LoginModal, { LoggedInUser } from './LoginModal';
 
 const APP_URL = 'https://app.pactrack.pl';
-const PAYMENT_API_URL = process.env.NEXT_PUBLIC_PAYMENT_API_URL || 'https://pactrack-payment-functions.azurewebsites.net/api';
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'https://app.pactrack.pl';
 
 export default function Pricing() {
   const t = useTranslations('pricing');
@@ -24,15 +24,13 @@ export default function Pricing() {
     setLoading(planId);
     setPaymentError('');
     try {
-      const response = await fetch(`${PAYMENT_API_URL}/subscriptions/create`, {
+      const response = await fetch(`${BACKEND_URL}/api/subscription/create-checkout`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${user.token}`,
         },
         body: JSON.stringify({
-          userId: user.userId,
-          email: user.email,
           plan: planId,
         }),
       });
