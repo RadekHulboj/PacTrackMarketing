@@ -102,22 +102,10 @@
     "sectionSubtitle": "Dołącz do grona zadowolonych sprzedawców, którzy zaufali PacTrack.",
     "items": [
       {
-        "quote": "PacTrack całkowicie zmienił sposób w jaki zarządzam przesyłkami. Integracja z Allegro oszczędza mi godziny pracy tygodniowo.",
-        "author": "Anna K.",
-        "role": "Sprzedawca Allegro",
-        "company": "ElektroShop"
-      },
-      {
-        "quote": "Certyfikaty cyfrowe to game changer. Klienci mają pewność autentyczności produktów, a ja mam spokój.",
-        "author": "Marek W.",
-        "role": "Właściciel sklepu",
-        "company": "PremiumWatch.pl"
-      },
-      {
-        "quote": "Dowody dostawy ze zdjęciami uratowały nas w kilku sporach z klientami. Polecam każdemu sprzedawcy.",
-        "author": "Katarzyna L.",
-        "role": "Menedżer logistyki",
-        "company": "FashionStore24"
+        "quote": "Tu jest miejsce na Twoją opinię o PacTrack",
+        "author": "Twoja nazwa",
+        "role": "Twoja rola",
+        "company": "Twoja firma"
       }
     ]
   },

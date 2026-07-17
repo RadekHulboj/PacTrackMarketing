@@ -102,22 +102,10 @@
     "sectionSubtitle": "Join satisfied sellers who trust PacTrack.",
     "items": [
       {
-        "quote": "PacTrack completely changed how I manage parcels. Allegro integration saves me hours of work every week.",
-        "author": "Anna K.",
-        "role": "Allegro Seller",
-        "company": "ElektroShop"
-      },
-      {
-        "quote": "Digital certificates are a game changer. Customers are sure about product authenticity, and I have peace of mind.",
-        "author": "Marek W.",
-        "role": "Store Owner",
-        "company": "PremiumWatch.pl"
-      },
-      {
-        "quote": "Delivery proof with photos saved us in several customer disputes. I recommend it to every seller.",
-        "author": "Katarzyna L.",
-        "role": "Logistics Manager",
-        "company": "FashionStore24"
+        "quote": "This is a place for your opinion about PacTrack",
+        "author": "Your name",
+        "role": "Your role",
+        "company": "Your company"
       }
     ]
   },
